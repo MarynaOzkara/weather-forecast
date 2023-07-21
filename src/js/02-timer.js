@@ -11,16 +11,14 @@ refs = {
   minutes: document.querySelector('span[data-minutes]'),
   seconds: document.querySelector('span[data-seconds]'),
 };
-  
 
- 
   const options = {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-      if(selectedDates[0] <= Date.now()) {
+      if(selectedDates[0] < Date.now()) {
         alert('Please choose a date in the future');
          refs.startBtn.disabled = true;
         selectedDates[0] = new Date();
@@ -33,9 +31,13 @@ refs = {
 
   flatpickr(refs.data, options);
 
-  const timer = {
-    intervalId: null,
-    isActive: false,
+  class Timer {
+    constructor({onTick}) {
+      this.intervalId = null;
+      this.isActive = false;
+      refs.startBtn.disabled = true;
+      this.onTick = onTick;
+    }
     start() {
       if(this.isActive) {
         return;
@@ -45,15 +47,23 @@ refs = {
         const currentTime = Date.now();
         const deltaTime = startTime - currentTime;
         const componentsTimer = convertMs(deltaTime);
-        updateTimerComponents(componentsTimer);
-      console.log(componentsTimer);
+        
+        this.onTick(componentsTimer);
+        
+        if(deltaTime < 1000) {
+          this.stop();
+          refs.data.disabled = false;
+        }
       }, 1000);
-    },
+    }
     stop() {
       clearInterval(this.intervalId);
-      this.isActive = false;
-    },
+    }
   }
+  
+  const timer = new Timer({
+    onTick: updateTimerComponents
+  });
   
 function updateTimerComponents({days, hours, minutes, seconds}) {
   refs.days.textContent = days;
