@@ -1,6 +1,7 @@
 import flatpickr from "flatpickr";
 // Додатковий імпорт стилів
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 
 
 refs = {
@@ -19,11 +20,12 @@ refs = {
     minuteIncrement: 1,
     onClose(selectedDates) {
       if(selectedDates[0] < Date.now()) {
-        alert('Please choose a date in the future');
+        Notiflix.Notify.failure('Please choose a date in the future');
          refs.startBtn.disabled = true;
-        selectedDates[0] = new Date();
+         selectedDates[0] = new Date();
       } else {
-        startTime = selectedDates[0];
+         Notiflix.Notify.success('That is ok!');
+         startTime = selectedDates[0];
          refs.startBtn.disabled = false;
       }
     },
