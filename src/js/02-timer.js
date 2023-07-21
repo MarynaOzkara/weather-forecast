@@ -22,9 +22,11 @@ refs = {
     onClose(selectedDates) {
       if(selectedDates[0] <= Date.now()) {
         alert('Please choose a date in the future');
+         refs.startBtn.disabled = true;
         selectedDates[0] = new Date();
       } else {
         startTime = selectedDates[0];
+         refs.startBtn.disabled = false;
       }
     },
   };
@@ -32,14 +34,24 @@ refs = {
   flatpickr(refs.data, options);
 
   const timer = {
+    intervalId: null,
+    isActive: false,
     start() {
-      intervalId = setInterval(() => {
+      if(this.isActive) {
+        return;
+      }
+      this.isActive = true;
+      this.intervalId = setInterval(() => {
         const currentTime = Date.now();
         const deltaTime = startTime - currentTime;
         const componentsTimer = convertMs(deltaTime);
         updateTimerComponents(componentsTimer);
       console.log(componentsTimer);
       }, 1000);
+    },
+    stop() {
+      clearInterval(this.intervalId);
+      this.isActive = false;
     },
   }
   
@@ -75,7 +87,7 @@ function convertMs(ms) {
 
 function onClick() {
   timer.start();
-  refs.startBtn.disabled = true;
+ 
   refs.data.disabled = true;
 }
 
