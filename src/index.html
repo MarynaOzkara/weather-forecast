@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework 9</title>
-    <link rel="stylesheet" href="css/common.css" />
+    <title>Weather forecast</title>
+    
   </head>
   <body>
-    <ul>
-      <li><a href="01-color-switcher.html">Color switcher</a></li>
-      <li><a href="02-timer.html">Countdown timer</a></li>
-      <li><a href="03-promises.html">Promise generator</a></li>
-    </ul>
+    <form action="submit" class="js-search">
+      <input type="text" name="query">
+      <select name="days">
+        <option value="1">1</option>
+        <option value="3">3</option>
+        <option value="7">7</option>
+        <option value="14">14</option> 
+      </select>
+      <select name="lang">
+        <option value="en">eng</option>
+        <option value="uk">ukr</option>
+        <option value="ru">ru</option>
+        
+      </select>
+      <button>Search</button>
+    </form>
+    <div class="container">
+      <ul class="js-list"></ul>
+    </div>
+    
+    
+    <script src="index.js" type="module"></script>
   </body>
 </html>
