@@ -28,11 +28,13 @@ function onSearch(event) {
 
 function createMarkup(arr) {
    return arr.map(({date, day:{ avgtemp_c, condition:{ text, icon} }}) => `
-    <li>
-        <img src="${icon}" alt="${text}">
-        <p>${text}</p>
-        <h2>${date}</h2>
-        <h3>${avgtemp_c}</h3>
+    <li class="list-item">
+        <h3 class="date">${date}</h3>
+        <div class="weather-icon">
+          <img src="${icon}" alt="${text}">
+        </div>
+        <h2 class="temper">${avgtemp_c}</h2>
+        <p class="descr">${text}</p>
     </li>
    `).join('');
 }
