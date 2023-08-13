@@ -33,7 +33,7 @@ function createMarkup(arr) {
         <div class="weather-icon">
           <img src="${icon}" alt="${text}">
         </div>
-        <h2 class="temper">${avgtemp_c}</h2>
+        <h2 class="temper">${avgtemp_c}<sup>&#176</sup>C</h2>
         <p class="descr">${text}</p>
     </li>
    `).join('');
